@@ -18,7 +18,7 @@ Este proyecto fue desarrollado como Trabajo de Fin de Ciclo para la titulación 
 * **Panel de Administración:** Interfaz privada para la creación, edición y borrado (CRUD) de cursos y gestión del alumnado.
 * **Matriculación:** Lógica de negocio para que los estudiantes puedan inscribirse y visualizar su progreso en los cursos disponibles.
 
-## 📄 Documentación del Proyecto (Memoria)
+## Documentación del Proyecto (Memoria)
 
 Para una comprensión técnica profunda sobre las decisiones de arquitectura, el modelo Entidad-Relación de la base de datos y los flujos de usuario, puedes consultar la memoria completa del proyecto:
 
