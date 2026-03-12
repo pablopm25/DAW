@@ -26,7 +26,7 @@ Para una comprensión técnica profunda sobre las decisiones de arquitectura, el
 
 Si deseas probar el proyecto en tu entorno local:
 
-1. Clona este repositorio: `git clone https://github.com/pablopm25/nombre-de-tu-repo-daw.git`
+1. Clona este repositorio: `git clone https://github.com/pablopm25/DAW.git`
 2. Instala las dependencias de PHP usando Composer: `composer install`
 3. Copia el archivo `.env.example` a `.env` y configura tus credenciales de base de datos MySQL.
 4. Genera la clave de la aplicación: `php artisan key:generate`
