@@ -1,4 +1,4 @@
-## Plataforma de Gestión de Cursos (Proyecto DAW)
+# Plataforma de Gestión de Cursos (Proyecto DAW)
 
 Plataforma web completa orientada a la gestión académica, matriculación de alumnos y administración de contenidos. 
 
