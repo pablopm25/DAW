@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Alumno - Plataforma Cursos</title>
+<link rel="stylesheet" href="../../assets/css/estilo.css">
+</head>
+<body>
+<header>
+    <h1 id="bienvenida"></h1>
+    <button onclick="logout()">Cerrar sesión</button>
+</header>
+
+<section>
+    <h2>Cursos Disponibles</h2>
+    <div class="buscador">
+        <input type="text" id="buscarCursos" placeholder="Buscar cursos por nombre..." oninput="cargarCursosAlumno()">
+    </div>
+
+    <table id="tablaCursosAlumno">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="card-container" id="cardCursosAlumno"></div>
+</section>
+
+<section>
+    <h2>Historial de Cursos</h2>
+    <div class="buscador">
+        <select id="filtroEstadoHistorial" onchange="cargarHistorial()">
+            <option value="todos">Todos</option>
+            <option value="activo">Activo</option>
+            <option value="baja">Baja</option>
+            <option value="finalizado">Finalizado</option>
+        </select>
+    </div>
+
+    <table id="tablaHistorialAlumno">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="card-container" id="cardHistorialAlumno"></div>
+</section>
+
+<div id="modalConfirm" class="modal">
+  <div class="modal-content">
+    <p id="mensajeConfirm">¿Estás seguro?</p>
+    <div class="accionesModal">
+      <button id="btnConfirmSi">Sí</button>
+      <button onclick="cerrarConfirmModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="../../assets/js/alumno.js"></script>
+</body>
+</html>

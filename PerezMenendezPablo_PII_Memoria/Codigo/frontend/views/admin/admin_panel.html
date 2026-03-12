@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Administrador - Plataforma Cursos</title>
+<link rel="stylesheet" href="../../assets/css/estilo.css">
+</head>
+<body>
+
+<header>
+    <h1 id="bienvenida">Bienvenido</h1>
+    <button onclick="logout()">Cerrar sesión</button>
+</header>
+
+<section class="dashboard-resumen">
+    <div class="card-resumen">
+        <h3>Total Cursos</h3>
+        <p id="totalCursos">...</p>
+    </div>
+    <div class="card-resumen">
+        <h3>Inscripciones Activas</h3>
+        <p id="totalInscripciones">...</p>
+    </div>
+</section>
+
+<section>
+    <h2>Gestión de Cursos</h2>
+    <div class="buscador">
+        <input type="text" id="buscarCursosAdmin" placeholder="Buscar cursos por título..." oninput="cargarCursosAdmin()">
+        <select id="filtroEstadoCurso" onchange="cargarCursosAdmin()">
+            <option value="todos">Todos</option>
+            <option value="activo">Activo</option>
+            <option value="inactivo">Inactivo</option>
+            <option value="finalizado">Finalizado</option>
+        </select>
+        <button id="btnNuevoCurso">+ Nuevo Curso</button>
+    </div>
+
+    <table id="tablaCursosAdmin">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th>Aforo</th> <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="card-container" id="cardCursosAdmin"></div>
+</section>
+
+<section>
+    <h2>Inscripciones de Alumnos</h2>
+    <div class="buscador">
+        <input type="text" id="buscarInscripciones" placeholder="Buscar alumno..." oninput="cargarInscripcionesAdmin()">
+        <select id="filtroEstadoAlumno" onchange="cargarInscripcionesAdmin()">
+            <option value="todos">Todos</option>
+            <option value="activo">Activo</option>
+            <option value="baja">Baja</option>
+        </select>
+    </div>
+
+    <table id="tablaInscripcionesAdmin">
+        <thead>
+            <tr>
+                <th>Alumno</th>
+                <th>Curso</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="card-container" id="cardInscripcionesAdmin"></div>
+</section>
+
+<div id="modalCurso" class="modal">
+    <div class="modal-content">
+        <h3 id="modalTitulo">Nuevo Curso</h3>
+        <form id="formCurso">
+            <input type="hidden" id="cursoId" name="cursoId">
+            
+            <label>Título:</label>
+            <input type="text" id="tituloCurso" name="tituloCurso" required>
+            
+            <label>Descripción:</label>
+            <textarea id="descripcionCurso" name="descripcionCurso" required></textarea>
+            
+            <label>Fecha inicio:</label>
+            <input type="date" id="fechaInicioCurso" name="fechaInicioCurso" required>
+            
+            <label>Fecha fin:</label>
+            <input type="date" id="fechaFinCurso" name="fechaFinCurso" required>
+            
+            <label>Plazas Máximas:</label>
+            <input type="number" id="plazasCurso" name="plazas" min="1" value="20" required>
+            
+            <div class="accionesModal">
+                <button type="submit">Guardar</button>
+                <button type="button" onclick="cerrarModal()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="modalConfirm" class="modal">
+  <div class="modal-content">
+    <p id="mensajeConfirm">¿Estás seguro?</p>
+    <div class="accionesModal">
+      <button id="btnConfirmSi">Sí</button>
+      <button onclick="cerrarConfirmModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toastContainer"></div>
+
+<script src="../../assets/js/admin.js"></script>
+</body>
+</html>

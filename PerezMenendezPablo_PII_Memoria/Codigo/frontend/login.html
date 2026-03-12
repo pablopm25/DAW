@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Plataforma Cursos</title>
+  <link rel="stylesheet" href="assets/css/estilo.css">
+</head>
+<body>
+
+  <header class="main-header">
+    <h1>Plataforma de Gestión de Cursos</h1>
+    <nav>
+      <button class="btn-header" onclick="window.location.href='index.html'">Inicio</button>
+      <button class="btn-header" onclick="window.location.href='registro.html'">Registrarse</button>
+    </nav>
+  </header>
+
+  <div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form id="loginForm">
+      <input type="email" name="email" placeholder="Correo electrónico" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <button type="submit">Entrar</button>
+    </form>
+    <p id="msgError" style="color:red;"></p>
+    <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+  </div>
+
+  <footer>
+    © 2025 Plataforma de Cursos
+  </footer>
+
+  <script>
+    const form = document.getElementById('loginForm');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      formData.append('action', 'login'); 
+
+      try {
+        const res = await fetch('../backend/routes/routes.php', {
+          method: 'POST',
+          body: formData
+        });
+
+        const text = await res.text(); 
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch(err) {
+          console.error('Respuesta no JSON:', text);
+          document.getElementById('msgError').textContent = 'Error en el servidor';
+          return;
+        }
+
+        if (data.status === 'ok') {
+          sessionStorage.setItem('usuario', JSON.stringify({
+            nombre: data.nombre,
+            rol: data.rol,
+            id_usuario: data.id_usuario
+          }));
+
+          if (data.rol === 'admin') {
+            window.location.href = 'views/admin/admin_panel.html';
+          } else {
+            window.location.href = 'views/alumno/alumno_panel.html';
+          }
+        } else {
+          document.getElementById('msgError').textContent = data.msg;
+        }
+
+      } catch(err) {
+        console.error(err);
+        document.getElementById('msgError').textContent = 'Error en la conexión al servidor';
+      }
+    });
+  </script>
+</body>
+</html>

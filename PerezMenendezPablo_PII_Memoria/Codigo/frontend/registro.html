@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro - Plataforma Cursos</title>
+  <link rel="stylesheet" href="assets/css/estilo.css" />
+</head>
+
+<body>
+  <header class="main-header">
+    <h1>Plataforma de Gestión de Cursos</h1>
+    <nav>
+      <button class="btn-header" onclick="window.location.href='index.html'">Inicio</button>
+      <button class="btn-header" onclick="window.location.href='login.html'">Iniciar Sesión</button>
+    </nav>
+  </header>
+
+  <div class="login-container">
+    <h2>Crear Cuenta</h2>
+    <form id="registroForm">
+      <input type="text" name="nombre" placeholder="Nombre completo" required />
+      <input type="email" name="email" placeholder="Correo (@gmail.com)" pattern=".+@gmail\.com" title="Solo correos @gmail.com" required />
+      <input type="password" name="password" placeholder="Contraseña" required />
+      <button type="submit">Registrarse</button>
+    </form>
+    <p id="msgRegistro" style="color:red; margin-top: 10px; font-weight: bold;"></p>
+    <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+  </div>
+
+  <footer>© 2025 Plataforma de Cursos</footer>
+
+  <div id="modalExito" class="modal">
+    <div class="modal-content" style="text-align: center;">
+      <h3 style="color: #2e7d32;">¡Registro Exitoso!</h3>
+      <p>Tu cuenta ha sido creada correctamente.</p>
+      <p>Ya puedes iniciar sesión con tus datos.</p>
+      <div class="accionesModal" style="justify-content: center;">
+          <button onclick="redirigirLogin()">Ir al Login</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('registroForm');
+    const modalExito = document.getElementById('modalExito');
+    const msgRegistro = document.getElementById('msgRegistro');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      formData.append('action', 'registro');
+
+      msgRegistro.textContent = 'Procesando...'; 
+      msgRegistro.style.color = 'blue';
+
+      try {
+        const res = await fetch('../backend/routes/routes.php', {
+          method: 'POST',
+          body: formData,
+        });
+        
+        const data = await res.json();
+
+        if (data.status === 'ok') {
+          msgRegistro.textContent = ''; 
+          modalExito.classList.add('show');
+        } else {
+          msgRegistro.style.color = 'red';
+          msgRegistro.textContent = data.msg;
+        }
+      } catch (err) {
+        console.error(err);
+        msgRegistro.style.color = 'red';
+        msgRegistro.textContent = 'Error de conexión con el servidor.';
+      }
+    });
+
+    function redirigirLogin() {
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>
